@@ -27,6 +27,7 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
+
     public function activationToken(){
         return $this->hasOne(ActivationToken::class);
     }

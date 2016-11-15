@@ -32,7 +32,6 @@ class LoginController extends Controller
     /**
      * Create a new controller instance.
      *
-     * @return void
      */
     public function __construct()
     {
@@ -48,10 +47,10 @@ class LoginController extends Controller
      */
     protected function authenticated(Request $request, $user)
     {
-        if (!$user->active){
+        if (!$user->active) {
             Auth::logout();
 
-            return redirect('login')->with('error',"Please activate your account. <a href='#'>Resend</a>");
+            return redirect('/login')->withError('Please activate your account. <a href="' . route('auth.activate.resend') . '?email=' . $user->email . '">Resend</a>');
         }
     }
 

@@ -18,3 +18,6 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index');
+Route::get('/activate/token/{token}', 'Auth\ActivationController@activate')->name('auth.activate');
+Route::get('/activate/resend', 'Auth\ActivationController@resend')->name('auth.activate.resend');
+

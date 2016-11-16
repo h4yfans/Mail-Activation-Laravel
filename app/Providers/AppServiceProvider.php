@@ -4,6 +4,7 @@ namespace App\Providers;
 
 use Mail;
 use App\User;
+use App\Events\UserRegistered;
 use App\Mail\SendActivationToken;
 use Illuminate\Support\ServiceProvider;
 
@@ -23,8 +24,7 @@ class AppServiceProvider extends ServiceProvider
                 'token' => str_random(128),
             ]);
 
-            Mail::to($user)->send(new SendActivationToken($token));
-
+            event(new UserRegistered($user));
         });
     }
     /**

@@ -85,12 +85,6 @@ class RegisterController extends Controller
     {
         Auth::logout();
 
-        $token = $user->activationToken()->create([
-            'token' => str_random(128),
-        ]);
-
-        Mail::to($user)->send(new SendActivationToken($token));
-
         return redirect('/login')->withInfo('Please now activate your account');
     }
 }

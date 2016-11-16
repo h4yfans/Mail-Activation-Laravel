@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use Mail;
+use App\User;
+use App\Mail\SendActivationToken;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -12,10 +15,18 @@ class AppServiceProvider extends ServiceProvider
      * @return void
      */
     public function boot()
-    {
-        //
-    }
 
+    {
+        User::created(function ($user) {
+
+            $token = $user->activationToken()->create([
+                'token' => str_random(128),
+            ]);
+
+            Mail::to($user)->send(new SendActivationToken($token));
+
+        });
+    }
     /**
      * Register any application services.
      *
